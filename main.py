@@ -1,16 +1,32 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
 from pydantic import BaseModel
 from typing import List, Optional
 import google.generativeai as genai
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI(title="Storytelling Companion API")
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key='AIzaSyD48JR8KHY9HoO_NGSVjo5lfDRT8kfrQ6o')
 model = genai.GenerativeModel('gemini-1.5-flash')
+
+# Configure CORS with more specific settings
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+    max_age=3600,
+)
+
+# Add an OPTIONS route handler for preflight requests
+@app.options("/{path:path}")
+async def options_handler(request: Request):
+    return {}
 
 class StoryIdea(BaseModel):
     premise: str
