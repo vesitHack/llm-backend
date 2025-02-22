@@ -1,0 +1,13 @@
+fastapi>=0.68.0
+uvicorn>=0.15.0
+python-dotenv>=0.19.0
+langchain>=0.0.184
+google-cloud-aiplatform>=1.36.0
+google-generativeai>=0.3.0
+pydantic>=1.8.2
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+sqlalchemy>=1.4.23
+aiosqlite>=0.17.0
+python-multipart>=0.0.5
+tiktoken>=0.3.3
